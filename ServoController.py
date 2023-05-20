@@ -23,6 +23,8 @@ def setup():
 
 
 def movePosition(deltaPitch, deltaYaw):
+    global pitchValue, yawValue  # Declare the variables as global
+
     if (factory is None):
         setup()
 
