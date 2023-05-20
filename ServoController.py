@@ -7,8 +7,8 @@ factory = None
 pitchServo = None
 yawServo = None
 
-pitchValue = 90
-yawValue = 90
+pitchValue = 0.5
+yawValue = 0.5
 
 maxAngle = 179
 minAngle = 1
