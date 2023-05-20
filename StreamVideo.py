@@ -6,6 +6,7 @@ import os
 import json
 import socket
 from CameraConfig import CameraConfig
+from ServoController import movePosition
 
 configPath = "camera-config.json"
 
@@ -74,6 +75,10 @@ while running:
                 yawDelta = struct.unpack('<i', message[4:8])[0]
                 print("Pitch delta: " + str(pitchDelta) +
                       ", yaw delta: " + str(yawDelta))
+                if (config.hasCamera):
+                    movePosition(pitchDelta, yawDelta)
+                else:
+                    print("No camera, not moving servos")
     except ConnectionResetError as error:
         print(
             "The established connection to the server was lost, will attempt to reconnect")
