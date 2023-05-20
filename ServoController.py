@@ -32,11 +32,17 @@ def movePosition(deltaPitch, deltaYaw):
     if (factory is None):
         setup()
 
+    print("Current pitch: " + str(pitchValue) +
+          ", current yaw: " + str(yawValue))
+
     print("Moving servos by " + str(deltaPitch) + " and " + str(deltaYaw) +
           " degrees")
 
-    pitchAngle = (deltaPitch / 90) - 1
-    yawAngle = (deltaYaw / 90) - 1
+    deltaPitchAngle = (deltaPitch / 90) - 1
+    deltaYawAngle = (deltaYaw / 90) - 1
+
+    pitchAngle = deltaPitchAngle
+    yawAngle = deltaYawAngle
 
     pitchValue = limit(pitchValue + pitchAngle)
     yawValue = limit(yawValue + yawAngle)
@@ -53,4 +59,6 @@ def limit(value):
         value = maxAngle
     elif value < minAngle:
         value = minAngle
+
+    print("Limited value to " + str(value))
     return value
