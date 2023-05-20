@@ -1,0 +1,5 @@
+{
+	"cameraId": 1,
+	"cameraToken": "token",
+	"webSocketEndpoint": "ws://localhost:5000/video-input-stream"
+}
