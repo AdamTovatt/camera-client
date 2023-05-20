@@ -32,6 +32,9 @@ def movePosition(deltaPitch, deltaYaw):
     if (factory is None):
         setup()
 
+    print("Moving servos by " + str(deltaPitch) + " and " + str(deltaYaw) +
+          " degrees")
+
     pitchAngle = (deltaPitch / 90) - 1
     yawAngle = (deltaYaw / 90) - 1
 
