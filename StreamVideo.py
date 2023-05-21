@@ -71,8 +71,8 @@ while running:
             message = ws.recv()
             if (len(message) > 0):
                 # Process the received message here
-                pitchDelta = struct.unpack('<i', message[:4])[0]
-                yawDelta = struct.unpack('<i', message[4:8])[0]
+                pitchDelta = struct.unpack('<f', message[:4])[0]
+                yawDelta = struct.unpack('<f', message[4:8])[0]
                 print("Pitch delta: " + str(pitchDelta) +
                       ", yaw delta: " + str(yawDelta))
                 if (config.hasCamera):
