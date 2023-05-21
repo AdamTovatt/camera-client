@@ -71,12 +71,10 @@ while running:
             message = ws.recv()
             if (len(message) > 0):
                 # Process the received message here
-                pitchDelta = struct.unpack('<f', message[:4])[0]
-                yawDelta = struct.unpack('<f', message[4:8])[0]
-                print("Pitch delta: " + str(pitchDelta) +
-                      ", yaw delta: " + str(yawDelta))
+                newPitch = struct.unpack('<f', message[:4])[0]
+                newYaw = struct.unpack('<f', message[4:8])[0]
                 if (config.hasCamera):
-                    movePosition(pitchDelta, yawDelta)
+                    movePosition(newPitch, newYaw)
                 else:
                     print("No camera, not moving servos")
     except ConnectionResetError as error:
