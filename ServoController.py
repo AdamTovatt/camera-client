@@ -10,8 +10,8 @@ yawServo = None
 pitchValue = 90
 yawValue = 90
 
-maxAngle = 179
-minAngle = 1
+maxAngle = 180
+minAngle = 0
 
 
 def setup():
