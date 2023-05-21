@@ -31,20 +31,20 @@ def movePosition(deltaPitch, deltaYaw):
     if (factory is None):
         setup()
 
-    print("Current pitch: " + str(pitchValue) +
-          ", current yaw: " + str(yawValue))
+    # print("Current pitch: " + str(pitchValue) +
+    # ", current yaw: " + str(yawValue))
 
-    print("Moving servos by " + str(deltaPitch) + " and " + str(deltaYaw) +
-          " degrees")
+    # print("Moving servos by " + str(deltaPitch) + " and " + str(deltaYaw) +
+    # " degrees")
 
     pitchValue = limit(pitchValue + deltaPitch)
     yawValue = limit(yawValue + deltaYaw)
 
-    print("Setting pitch to " + str(math.floor(pitchValue)) +
-          " and yaw to " + str(math.floor(yawValue)))
+    print("Setting pitch to " + str(math.round((math.floor(pitchValue) / 90) - 1) * 5) +
+          " and yaw to " + str(math.round((math.floor(yawValue) / 90) - 1) * 5))
 
-    pitchServo.value = (math.floor(pitchValue) / 90) - 1
-    yawServo.value = (math.floor(yawValue) / 90) - 1
+    pitchServo.value = math.round((math.floor(pitchValue) / 90) - 1) * 5
+    yawServo.value = math.round((math.floor(yawValue) / 90) - 1) * 5
 
 
 def limit(value):
@@ -53,5 +53,5 @@ def limit(value):
     elif value < minAngle:
         value = minAngle
 
-    print("Limited value to " + str(value))
+    # print("Limited value to " + str(value))
     return value
