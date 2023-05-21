@@ -35,15 +35,12 @@ def movePosition(newPitch, newYaw):
     if (factory is None):
         setup()
 
-    print("Moving servos to " + str(newPitch) + " and " + str(newYaw))
-
     pitchValue = limit(newPitch)
     yawValue = limit(newYaw)
 
     if (newPitch != lastPitch or newYaw != lastYaw):
         try:
             differencePitch = abs(newPitch - lastPitch) + abs(newYaw - lastYaw)
-            print("Difference: " + str(differencePitch))
             lastPitch = newPitch
             lastYaw = newYaw
             pitchServo.value = lastPitch
