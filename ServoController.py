@@ -40,15 +40,12 @@ def movePosition(deltaPitch, deltaYaw):
     pitchValue = limit(pitchValue + deltaPitch)
     yawValue = limit(yawValue + deltaYaw)
 
-    pitchValue_floor = floor_to_nearest_5(pitchValue)
-    yawValue_floor = floor_to_nearest_5(yawValue)
-
-    print("Setting pitch to " + str((pitchValue_floor / 90) - 1) +
-          " and yaw to " + str((yawValue_floor / 90) - 1))
+    print("Setting pitch to " + str((pitchValue / 90) - 1) +
+          " and yaw to " + str((yawValue / 90) - 1))
 
     try:
-        pitchServo.value = (pitchValue_floor / 90) - 1
-        yawServo.value = (yawValue_floor / 90) - 1
+        pitchServo.value = (pitchValue / 90) - 1
+        yawServo.value = (yawValue / 90) - 1
         sleep(0.1)  # Delay to allow the servos to move
         pitchServo.detach()
         yawServo.detach()
