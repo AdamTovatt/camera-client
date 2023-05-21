@@ -14,6 +14,9 @@ yawValue = 90
 maxAngle = 180
 minAngle = 0
 
+lastPitch = pitchValue
+lastYaw = yawValue
+
 
 def setup():
     global factory, pitchServo, yawServo  # Declare the variables as global
@@ -43,14 +46,20 @@ def movePosition(deltaPitch, deltaYaw):
     print("Setting pitch to " + str((pitchValue / 90) - 1) +
           " and yaw to " + str((yawValue / 90) - 1))
 
-    try:
-        pitchServo.value = (pitchValue / 90) - 1
-        yawServo.value = (yawValue / 90) - 1
-        sleep(0.1)  # Delay to allow the servos to move
-        pitchServo.detach()
-        yawServo.detach()
-    except Exception as exception:
-        print("Could not move servos: " + str(exception))
+    newPitch = (pitchValue / 90) - 1
+    newYaw = (yawValue / 90) - 1
+
+    if (newPitch != lastPitch or newYaw != lastYaw):
+        try:
+            lastPitch = newPitch
+            lastYaw = newYaw
+            pitchServo.value = lastPitch
+            yawServo.value = lastYaw
+            sleep(0.1)  # Delay to allow the servos to move
+            pitchServo.detach()
+            yawServo.detach()
+        except Exception as exception:
+            print("Could not move servos: " + str(exception))
 
 
 def floor_to_nearest_5(value):
