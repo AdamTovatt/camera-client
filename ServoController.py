@@ -8,10 +8,10 @@ factory = None
 pitchServo = None
 yawServo = None
 
-pitchValue = 90
-yawValue = 90
+pitchValue = 0.5
+yawValue = 0.5
 
-maxAngle = 180
+maxAngle = 1
 minAngle = 0
 
 lastPitch = pitchValue
@@ -29,26 +29,16 @@ def setup():
                      max_pulse_width=2.5/1000, pin_factory=factory)
 
 
-def movePosition(newPitchAngle, newYawAngle):
+def movePosition(newPitch, newYaw):
     global pitchValue, yawValue, lastPitch, lastYaw  # Declare the variables as global
 
     if (factory is None):
         setup()
 
-    # print("Current pitch: " + str(pitchValue) +
-    # ", current yaw: " + str(yawValue))
+    print("Moving servos to " + str(newPitch) + " and " + str(newYaw))
 
-    # print("Moving servos by " + str(deltaPitch) + " and " + str(deltaYaw) +
-    # " degrees")
-
-    pitchValue = limit(pitchValue + newPitchAngle)
-    yawValue = limit(yawValue + newYawAngle)
-
-    print("Setting pitch to " + str((pitchValue / 90) - 1) +
-          " and yaw to " + str((yawValue / 90) - 1))
-
-    newPitch = (pitchValue / 90) - 1
-    newYaw = (yawValue / 90) - 1
+    pitchValue = limit(newPitch)
+    yawValue = limit(newYaw)
 
     if (newPitch != lastPitch or newYaw != lastYaw):
         try:
