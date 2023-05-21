@@ -48,7 +48,7 @@ def movePosition(newPitch, newYaw):
             lastYaw = newYaw
             pitchServo.value = lastPitch
             yawServo.value = lastYaw
-            sleep(0.01 * differencePitch)  # Delay to allow the servos to move
+            sleep(1 * differencePitch)  # Delay to allow the servos to move
             pitchServo.detach()
             yawServo.detach()
         except Exception as exception:
