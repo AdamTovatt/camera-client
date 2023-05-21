@@ -19,7 +19,8 @@ lastYaw = yawValue
 
 
 def setup():
-    global factory, pitchServo, yawServo  # Declare the variables as global
+    # Declare the variables as global
+    global factory, pitchServo, yawServo, lastPitch, lastYaw
 
     factory = PiGPIOFactory()
     pitchServo = Servo(14, min_pulse_width=0.5/1000,
@@ -29,7 +30,7 @@ def setup():
 
 
 def movePosition(deltaPitch, deltaYaw):
-    global pitchValue, yawValue  # Declare the variables as global
+    global pitchValue, yawValue, lastPitch, lastYaw  # Declare the variables as global
 
     if (factory is None):
         setup()
