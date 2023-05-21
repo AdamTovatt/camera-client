@@ -40,11 +40,11 @@ def movePosition(deltaPitch, deltaYaw):
     pitchValue = limit(pitchValue + deltaPitch)
     yawValue = limit(yawValue + deltaYaw)
 
-    print("Setting pitch to " + str(pitchValue) +
-          " and yaw to " + str(yawValue))
+    print("Setting pitch to " + str(math.floor(pitchValue)) +
+          " and yaw to " + str(math.floor(yawValue)))
 
-    pitchServo.value = math.floor((pitchValue / 90) - 1)
-    yawServo.value = math.floor((yawValue / 90) - 1)
+    pitchServo.value = (math.floor(pitchValue) / 90) - 1
+    yawServo.value = (math.floor(yawValue) / 90) - 1
 
 
 def limit(value):
