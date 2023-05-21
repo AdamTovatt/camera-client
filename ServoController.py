@@ -40,11 +40,14 @@ def movePosition(deltaPitch, deltaYaw):
     pitchValue = limit(pitchValue + deltaPitch)
     yawValue = limit(yawValue + deltaYaw)
 
-    print("Setting pitch to " + str(math.round((math.floor(pitchValue) / 90) - 1) * 5) +
-          " and yaw to " + str(math.round((math.floor(yawValue) / 90) - 1) * 5))
+    print("Setting pitch to " + str(math.floor((math.floor(pitchValue) / 90) - 1) * 5) +
+          " and yaw to " + str(math.floor((math.floor(yawValue) / 90) - 1) * 5))
 
-    pitchServo.value = math.round((math.floor(pitchValue) / 90) - 1) * 5
-    yawServo.value = math.round((math.floor(yawValue) / 90) - 1) * 5
+    try:
+        pitchServo.value = math.floor((math.floor(pitchValue) / 90) - 1) * 5
+        yawServo.value = math.floor((math.floor(yawValue) / 90) - 1) * 5
+    except:
+        print("Could not move servos")
 
 
 def limit(value):
