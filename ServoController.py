@@ -1,3 +1,4 @@
+import math
 from gpiozero import Servo
 from time import sleep
 
@@ -42,8 +43,8 @@ def movePosition(deltaPitch, deltaYaw):
     print("Setting pitch to " + str(pitchValue) +
           " and yaw to " + str(yawValue))
 
-    pitchServo.value = (pitchValue / 90) - 1
-    yawServo.value = (yawValue / 90) - 1
+    pitchServo.value = math.floor((pitchValue / 90) - 1)
+    yawServo.value = math.floor((yawValue / 90) - 1)
 
 
 def limit(value):
