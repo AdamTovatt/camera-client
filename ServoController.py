@@ -49,6 +49,9 @@ def movePosition(deltaPitch, deltaYaw):
     try:
         pitchServo.value = (pitchValue_floor / 90) - 1
         yawServo.value = (yawValue_floor / 90) - 1
+        sleep(0.1)  # Delay to allow the servos to move
+        pitchServo.detach()
+        yawServo.detach()
     except Exception as exception:
         print("Could not move servos: " + str(exception))
 
