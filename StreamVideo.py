@@ -95,7 +95,10 @@ while running:
         print("The connection timed out, will attempt to reconnect in 30 seconds")
         time.sleep(30)
     except websocket._exceptions.WebSocketConnectionClosedException:
-        print("The connection was closed, will attempt to reconnect in 30 seconds")
+        print("The connection was closed, will attempt to reconnect in 5 seconds")
+        time.sleep(5)
+    except websocket._exceptions.WebSocketBadStatusException:
+        print("The connection was closed, will attempt to reconnect in 5 seconds")
         time.sleep(5)
 
 # Release the resources
