@@ -73,7 +73,7 @@ while running:
                 # Process the received message here
                 newPitch = struct.unpack('<f', message[:4])[0]
                 newYaw = struct.unpack('<f', message[4:8])[0]
-                if (config.hasCamera):
+                if (config.hasMotor):
                     movePosition(newPitch, newYaw)
                 else:
                     print("No camera, not moving servos")
