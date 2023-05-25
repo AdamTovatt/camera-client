@@ -109,6 +109,9 @@ while running:
     except websocket._exceptions.WebSocketBadStatusException:
         print("The connection was closed, will attempt to reconnect in 5 seconds")
         time.sleep(5)
+    except websocket._exceptions.WebSocketTimeoutException:
+        print("The connection timed out. Will attempt to reconnect in 5 seconds")
+        time.sleep(5)
 
 # Release the resources
 if (cap is not None):
