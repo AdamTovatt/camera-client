@@ -83,9 +83,9 @@ while running:
             except socket.timeout:
                 print(
                     "The connection timed out while reading a message, will try to continue sending video (socket.timeout))")
-            except websocket._exceptions.WebsocketTimeoutException:
+            except websocket._exceptions.WebSocketTimeoutException:
                 print(
-                    "The connection timed out while reading a message, will try to continue sending video (websocket._exceptions.WebsocketTimeoutException))")
+                    "The connection timed out while reading a message, will try to continue sending video (websocket._exceptions.WebSocketTimeoutException))")
     except ConnectionResetError as error:
         print(
             "The established connection to the server was lost, will attempt to reconnect")
