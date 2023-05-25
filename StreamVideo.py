@@ -55,6 +55,8 @@ while running:
 
         print("Video capture started, will start sending video")
 
+        ws.settimeout(2)  # Set the time out to 2 seconds
+
         # Capture and encode the video
         while running:
             ret, frame = cap.read()
@@ -68,15 +70,22 @@ while running:
             # Send the video chunk to the server
             ws.send_binary(struct.pack('<I', len(data)) + data)
 
-            message = ws.recv()
-            if (len(message) > 0):
-                # Process the received message here
-                newPitch = struct.unpack('<f', message[:4])[0]
-                newYaw = struct.unpack('<f', message[4:8])[0]
-                if (config.hasMotor):
-                    movePosition(newPitch, newYaw)
-                else:
-                    print("No camera, not moving servos")
+            try:
+                message = ws.recv()
+                if (len(message) > 0):
+                    # Process the received message here
+                    newPitch = struct.unpack('<f', message[:4])[0]
+                    newYaw = struct.unpack('<f', message[4:8])[0]
+                    if (config.hasMotor):
+                        movePosition(newPitch, newYaw)
+                    else:
+                        print("No camera, not moving servos")
+            except socket.timeout:
+                print(
+                    "The connection timed out while reading a message, will try to continue sending video (socket.timeout))")
+            except websocket._exceptions.WebsocketTimeoutException:
+                print(
+                    "The connection timed out while reading a message, will try to continue sending video (websocket._exceptions.WebsocketTimeoutException))")
     except ConnectionResetError as error:
         print(
             "The established connection to the server was lost, will attempt to reconnect")
