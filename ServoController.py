@@ -45,16 +45,11 @@ def movePosition(newPitch, newYaw):
             lastPitch = newPitch
             lastYaw = newYaw
 
-            def move_servos():
-                pitchServo.value = lastPitch
-                yawServo.value = lastYaw
-                sleep(1 * differencePitch)  # Delay to allow the servos to move
-                pitchServo.detach()
-                yawServo.detach()
-
-            # Start a new thread to run the move_servos function
-            thread = threading.Thread(target=move_servos)
-            thread.start()
+            pitchServo.value = lastPitch
+            yawServo.value = lastYaw
+            sleep(1 * differencePitch)  # Delay to allow the servos to move
+            pitchServo.detach()
+            yawServo.detach()
         except Exception as exception:
             print("Could not move servos: " + str(exception))
 
