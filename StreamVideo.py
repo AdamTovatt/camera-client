@@ -7,7 +7,7 @@ import os
 import json
 import socket
 from CameraConfig import CameraConfig
-from MockServoController import movePosition
+from ServoController import movePosition
 
 configPath = "camera-config.json"
 
