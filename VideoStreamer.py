@@ -80,7 +80,6 @@ class VideoStreamer:
                 if len(message) > 0:
                     # process the received message here
                     messageType = struct.unpack('<i', message[:4])[0]
-                    print("Message type: " + str(messageType))
                     if messageType == 1:
                         newPitch = struct.unpack('<f', message[4:8])[0]
                         newYaw = struct.unpack('<f', message[8:12])[0]
