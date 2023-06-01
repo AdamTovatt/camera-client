@@ -39,6 +39,8 @@ def movePosition(newPitch, newYaw):
     pitchValue = limit(newPitch)
     yawValue = limit(newYaw)
 
+    print("Moving servos: Pitch: " + str(pitchValue) + " Yaw: " + str(yawValue))
+
     if (newPitch != lastPitch or newYaw != lastYaw):
         try:
             differencePitch = abs(newPitch - lastPitch) + abs(newYaw - lastYaw)
