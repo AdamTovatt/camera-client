@@ -10,7 +10,7 @@ import json
 import socket
 from CameraConfig import CameraConfig
 from ServoController import movePosition
-from Update import start_update, update
+from Update import update
 
 
 class VideoStreamer:
