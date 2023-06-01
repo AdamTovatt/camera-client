@@ -88,6 +88,7 @@ class VideoStreamer:
                         else:
                             self.log("No motors, not moving servos")
                     elif messageType == 2:
+                        self.log("Received update message, will start update")
                         self.start_update()
             except socket.timeout:
                 pass
