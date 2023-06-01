@@ -69,7 +69,6 @@ class VideoStreamer:
         return True
 
     def start_update(self):
-        print("Got update command, will start update")
         subprocess.Popen([sys.executable, "Update.py"])
         self.running = False
 
