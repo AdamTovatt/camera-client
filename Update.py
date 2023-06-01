@@ -11,8 +11,4 @@ def start_update():
 
 
 sleep(1)
-run("sudo systemctl stop camera-client.service")  # stop the service
-sleep(1)  # wait for the service to stop
-run("git pull")  # pull the latest changes
-sleep(1)
-run("sudo systemctl start camera-client.service")  # start the service
+run("./update_script.sh")  # stop the service

@@ -70,7 +70,7 @@ class VideoStreamer:
         return True
 
     def start_update(self):
-        start_update()
+        subprocess.Popen([sys.executable, "Update.py"])
         self.running = False
 
     def receive_messages(self):
