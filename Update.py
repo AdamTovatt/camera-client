@@ -6,6 +6,11 @@ def run(command):
     subprocess.run(command, shell=True)
 
 
+def start_update():
+    run("sudo systemctl start camera-client-update")
+
+
+sleep(1)
 run("sudo systemctl stop camera-client.service")  # stop the service
 sleep(1)  # wait for the service to stop
 run("git pull")  # pull the latest changes
