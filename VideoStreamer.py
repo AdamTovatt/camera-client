@@ -145,7 +145,7 @@ class VideoStreamer:
                         self.log("Error! Could not read frame from camera")
                         break
 
-                    # encode the frame as JPG (I think H.264 could yield performance improvements but I couldn't get the encoding to work)
+                    # encode the frame as JPG
                     _, buffer = cv2.imencode('.jpg', frame)
                     data = buffer.tobytes()
                     dataLength = len(data)
