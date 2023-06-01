@@ -1,3 +1,5 @@
+import subprocess
+import sys
 import threading
 import cv2
 import websocket
@@ -66,20 +68,28 @@ class VideoStreamer:
 
         return True
 
+    def start_update(self):
+        print("Got update command, will start update")
+        subprocess.Popen([sys.executable, "Update.py"])
+        self.running = False
+
     def receive_messages(self):
         while self.running and not self.receive_stopped:
             try:
-                message = websocket.recv()
+                message = self.websocket.recv()
                 if len(message) > 0:
                     # process the received message here
                     messageType = struct.unpack('<i', message[:4])[0]
+                    print("Message type: " + str(messageType))
                     if messageType == 1:
                         newPitch = struct.unpack('<f', message[4:8])[0]
                         newYaw = struct.unpack('<f', message[8:12])[0]
                         if self.config.has_motor:
                             movePosition(newPitch, newYaw)
                         else:
-                            self.log("No camera, not moving servos")
+                            self.log("No motors, not moving servos")
+                    elif messageType == 2:
+                        self.start_update()
             except socket.timeout:
                 pass
             except websocket._exceptions.WebSocketTimeoutException:
@@ -87,9 +97,11 @@ class VideoStreamer:
             except websocket._exceptions.WebSocketConnectionClosedException:
                 self.log("The connection was closed while reading a message")
                 self.receive_stopped = True
-            except:
-                self.log("An error occurred while reading a message")
+                self.running = False
+            except Exception as error:
+                self.log("An error occurred while reading a message", error)
                 self.receive_stopped = True
+                self.running = False
 
     def start(self):
         receive_thread = None
@@ -174,8 +186,8 @@ class VideoStreamer:
             self.video_capture.release()
 
         # close the WebSocket connection
-        if (websocket is not None):
-            websocket.close()
+        if (self.websocket is not None):
+            self.websocket.close()
 
     def log(self, message):
         if (self.config == None or self.config.should_log):
