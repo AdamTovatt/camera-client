@@ -10,7 +10,7 @@ import json
 import socket
 from CameraConfig import CameraConfig
 from ServoController import movePosition
-from Update import start_update
+from Update import start_update, update
 
 
 class VideoStreamer:
@@ -70,7 +70,7 @@ class VideoStreamer:
         return True
 
     def start_update(self):
-        subprocess.Popen([sys.executable, "Update.py"])
+        update()
         self.running = False
 
     def receive_messages(self):

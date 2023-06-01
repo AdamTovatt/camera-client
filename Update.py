@@ -3,12 +3,14 @@ import subprocess
 
 
 def run(command):
-    subprocess.run(command, shell=True)
+    print("Will run command:!", command)
+    result = subprocess.run(command, shell=True, capture_output=True)
+    if result.returncode != 0:
+        print(f"ERROR! '{command}' failed with return code {result.returncode}")
+    print("Output was", result.stdout.decode().strip())  # Optionally capture and return the output
 
 
-def start_update():
-    run("sudo systemctl start camera-client-update")
-
-
-sleep(1)
-run("./update_script.sh")  # stop the service
+def update():
+    print("Starting update")
+    sleep(1)
+    run("git pull")  # stop the service
