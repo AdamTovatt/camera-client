@@ -9,7 +9,7 @@ import os
 import json
 import socket
 from CameraConfig import CameraConfig
-from ServoController import movePosition
+from ServoController import ServoController
 from Update import update
 
 
@@ -20,6 +20,7 @@ class VideoStreamer:
     websocket = None
     config = None
     receive_stopped = True
+    servo_controller = None
 
     def __init__(self, configPath):
         self.config_path = configPath
@@ -81,10 +82,10 @@ class VideoStreamer:
                     # process the received message here
                     messageType = struct.unpack('<i', message[:4])[0]
                     if messageType == 1:
-                        newPitch = struct.unpack('<f', message[4:8])[0]
-                        newYaw = struct.unpack('<f', message[8:12])[0]
+                        new_x = struct.unpack('<f', message[4:8])[0]
+                        new_y = struct.unpack('<f', message[8:12])[0]
                         if self.config.has_motor:
-                            movePosition(newPitch, newYaw)
+                            self.servo_controller.set_position(new_x, new_y)
                         else:
                             self.log("No motors, not moving servos")
                     elif messageType == 2:
@@ -102,6 +103,14 @@ class VideoStreamer:
                 self.log("An error occurred while reading a message", error)
                 self.receive_stopped = True
                 self.running = False
+
+    def start_servos(self):
+        if (self.config.has_motor == False):
+            return
+
+        self.log("Starting servos")
+        self.servo_controller = ServoController(-1, 1, -1, 1, 2, 0.1)
+        self.servo_controller.start()
 
     def start(self):
         receive_thread = None
