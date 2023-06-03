@@ -29,13 +29,13 @@ class ServoController:
     max_speed = 1  # maximum change in servo position per update
     update_interval = 0.1  # seconds to sleep before updating the servo positions
 
-    def __init__(self, min_x, max_x, min_y, max_y, max_speed, update_interval):
-        self.min_x = min_x
-        self.max_x = max_x
-        self.min_y = min_y
-        self.max_y = max_y
-        self.max_speed = max_speed
-        self.update_interval = update_interval
+    def __init__(self, config):
+        self.min_x = config.min_x
+        self.max_x = config.max_x
+        self.min_y = config.min_y
+        self.max_y = config.max_y
+        self.max_speed = config.max_speed
+        self.update_interval = config.update_interval
         self.setup()
 
     def start(self):

@@ -109,7 +109,7 @@ class VideoStreamer:
             return
 
         self.log("Starting servos")
-        self.servo_controller = ServoController(-1, 1, -1, 1, 2, 0.1)
+        self.servo_controller = ServoController(self.config)
         self.servo_controller.start()
 
     def start(self):
