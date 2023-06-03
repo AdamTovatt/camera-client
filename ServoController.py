@@ -51,9 +51,9 @@ class ServoController:
     def setup(self):
         self.factory = PiGPIOFactory()
 
-        self.x_servo = Servo(14, min_pulse_width=0.5/1000,
+        self.x_servo = Servo(15, min_pulse_width=0.5/1000,
                              max_pulse_width=2.5/1000, pin_factory=self.factory)
-        self.y_servo = Servo(15, min_pulse_width=0.5/1000,
+        self.y_servo = Servo(14, min_pulse_width=0.5/1000,
                              max_pulse_width=2.5/1000, pin_factory=self.factory)
 
     def set_position(self, new_x, new_y):

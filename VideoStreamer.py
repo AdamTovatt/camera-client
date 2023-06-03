@@ -84,8 +84,8 @@ class VideoStreamer:
                     # process the received message here
                     messageType = struct.unpack('<i', message[:4])[0]
                     if messageType == 1:
-                        new_x = struct.unpack('<f', message[4:8])[0]
-                        new_y = struct.unpack('<f', message[8:12])[0]
+                        new_y = struct.unpack('<f', message[4:8])[0]
+                        new_x = struct.unpack('<f', message[8:12])[0]
                         if self.config.has_motor:
                             self.servo_controller.set_position(new_x, new_y)
                         else:
