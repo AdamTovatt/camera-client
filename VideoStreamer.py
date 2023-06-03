@@ -9,6 +9,7 @@ import os
 import json
 import socket
 from CameraConfig import CameraConfig
+from Program import ExitThreadException
 from ServoController import ServoController
 from Update import update
 
@@ -74,7 +75,7 @@ class VideoStreamer:
         update()
         self.running = False
         self.cleanup()
-        sys.exit()
+        raise ExitThreadException()
 
     def receive_messages(self):
         while self.running and not self.receive_stopped:
