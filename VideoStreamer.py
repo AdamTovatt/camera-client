@@ -73,6 +73,8 @@ class VideoStreamer:
     def start_update(self):
         update()
         self.running = False
+        self.cleanup()
+        sys.exit()
 
     def receive_messages(self):
         while self.running and not self.receive_stopped:
@@ -103,6 +105,15 @@ class VideoStreamer:
                 self.log("An error occurred while reading a message", error)
                 self.receive_stopped = True
                 self.running = False
+
+    def cleanup(self):
+        # release the resources
+        if (self.video_capture is not None):
+            self.video_capture.release()
+
+        # close the WebSocket connection
+        if (self.websocket is not None):
+            self.websocket.close()
 
     def start_servos(self):
         if (not self.config.has_motor):
@@ -191,13 +202,7 @@ class VideoStreamer:
                 self.log("The connection timed out. Will attempt to reconnect in 5 seconds")
                 time.sleep(5)
 
-        # release the resources
-        if (self.video_capture is not None):
-            self.video_capture.release()
-
-        # close the WebSocket connection
-        if (self.websocket is not None):
-            self.websocket.close()
+        self.cleanup()
 
     def log(self, message):
         if (self.config == None or self.config.should_log):

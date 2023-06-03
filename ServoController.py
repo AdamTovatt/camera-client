@@ -57,8 +57,10 @@ class ServoController:
                              max_pulse_width=2.5/1000, pin_factory=self.factory)
 
     def set_position(self, new_x, new_y):
+        print("Setting new position: ", new_x, new_y)
         self.target_x = self.limit_x(new_x)
         self.target_y = self.limit_y(new_y)
+        print("New target position: ", self.target_x, self.target_y)
 
     def update_servo_positions(self):
         while self.running:
@@ -66,6 +68,7 @@ class ServoController:
                 new_x = self.move_value_towards(self.current_x, self.target_x, self.max_speed)
                 self.x_servo.value = new_x
                 self.current_x = new_x
+                print("Setting new x position: ", new_x)
             else:
                 self.x_servo.detach()
 
@@ -73,6 +76,7 @@ class ServoController:
                 new_y = self.move_value_towards(self.current_y, self.target_y, self.max_speed)
                 self.y_servo.value = new_y
                 self.current_y = new_y
+                print("Setting new y position: ", new_y)
             else:
                 self.y_servo.detach()
 
