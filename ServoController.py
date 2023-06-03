@@ -65,12 +65,14 @@ class ServoController:
             if not self.is_within_range(self.current_x, self.target_x, 0.001):
                 new_x = self.move_value_towards(self.current_x, self.target_x, self.max_speed)
                 self.x_servo.value = new_x
+                self.current_x = new_x
             else:
                 self.x_servo.detach()
 
             if not self.is_within_range(self.current_y, self.target_y, 0.001):
                 new_y = self.move_value_towards(self.current_y, self.target_y, self.max_speed)
                 self.y_servo.value = new_y
+                self.current_y = new_y
             else:
                 self.y_servo.detach()
 
@@ -86,7 +88,7 @@ class ServoController:
         return abs(value - target) <= range
 
     def limit_x(self, value):
-        return max(min(value, self.max_x), self.min_y)
+        return max(min(value, self.max_x), self.min_x)
 
     def limit_y(self, value):
         return max(min(value, self.max_y), self.min_y)
