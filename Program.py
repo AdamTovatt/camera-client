@@ -22,6 +22,8 @@ def main():
     if (exit_value == 2):
         update()
         print("Will exit to let systemctl restart the service")
+    else:
+        print("Exiting with code: " + str(exit_value))
 
 
 main()
