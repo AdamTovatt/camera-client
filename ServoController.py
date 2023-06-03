@@ -39,6 +39,7 @@ class ServoController:
         self.setup()
 
     def start(self):
+        print("Starting servos: ", self.min_x, self.max_x, self.min_y, self.max_y, self.max_speed, self.update_interval)
         self.running = True
         self.update_thread = threading.Thread(target=self.update_servo_positions)
         self.update_thread.start()
@@ -61,13 +62,13 @@ class ServoController:
 
     def update_servo_positions(self):
         while self.running:
-            if not self.is_within_range(self.current_x, self.target_x, 0.1):
+            if not self.is_within_range(self.current_x, self.target_x, 0.001):
                 new_x = self.move_value_towards(self.current_x, self.target_x, self.max_speed)
                 self.x_servo.value = new_x
             else:
                 self.x_servo.detach()
 
-            if not self.is_within_range(self.current_y, self.target_y, 0.1):
+            if not self.is_within_range(self.current_y, self.target_y, 0.001):
                 new_y = self.move_value_towards(self.current_y, self.target_y, self.max_speed)
                 self.y_servo.value = new_y
             else:

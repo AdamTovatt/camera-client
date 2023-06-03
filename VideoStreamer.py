@@ -105,7 +105,8 @@ class VideoStreamer:
                 self.running = False
 
     def start_servos(self):
-        if (self.config.has_motor == False):
+        if (not self.config.has_motor):
+            self.log("No motors, not starting servos")
             return
 
         self.log("Starting servos")
