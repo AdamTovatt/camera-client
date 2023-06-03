@@ -1,10 +1,7 @@
 import sys
 from CameraConfig import CameraConfig
+from ExitException import ExitThreadException
 from VideoStreamer import VideoStreamer
-
-
-class ExitThreadException(Exception):
-    pass
 
 
 def main():

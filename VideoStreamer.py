@@ -9,7 +9,7 @@ import os
 import json
 import socket
 from CameraConfig import CameraConfig
-from Program import ExitThreadException
+from ExitException import ExitThreadException
 from ServoController import ServoController
 from Update import update
 
