@@ -66,17 +66,21 @@ class ServoController:
         while self.running:
             if not self.is_within_range(self.current_x, self.target_x, 0.001):
                 new_x = self.move_value_towards(self.current_x, self.target_x, self.max_speed)
-                self.x_servo.value = new_x
-                self.current_x = new_x
-                print("Setting new x position: ", new_x)
+
+                if (not abs(self.current_x - new_x) > self.max_speed):
+                    self.x_servo.value = new_x
+                    self.current_x = new_x
+                    print("Setting new x position: ", new_x)
             else:
                 self.x_servo.detach()
 
             if not self.is_within_range(self.current_y, self.target_y, 0.001):
                 new_y = self.move_value_towards(self.current_y, self.target_y, self.max_speed)
-                self.y_servo.value = new_y
-                self.current_y = new_y
-                print("Setting new y position: ", new_y)
+
+                if (not abs(self.current_y - new_y) > self.max_speed):
+                    self.y_servo.value = new_y
+                    self.current_y = new_y
+                    print("Setting new y position: ", new_y)
             else:
                 self.y_servo.detach()
 
