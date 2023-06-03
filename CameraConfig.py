@@ -41,4 +41,4 @@ class CameraConfig:
 
     @staticmethod
     def get_required_fields():
-        return ['cameraId', 'cameraToken', 'webSocketEndpoint', 'hasMotor', 'shouldLog', 'maxX', 'maxY', 'minX', 'minY']
+        return ['cameraId', 'cameraToken', 'webSocketEndpoint', 'hasMotor', 'shouldLog', 'maxX', 'maxY', 'minX', 'minY', 'maxSpeed', 'updateInterval']
