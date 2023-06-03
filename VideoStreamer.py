@@ -22,6 +22,7 @@ class VideoStreamer:
     config = None
     receive_stopped = True
     servo_controller = None
+    should_update = False
 
     def __init__(self, configPath):
         self.config_path = configPath
@@ -72,10 +73,9 @@ class VideoStreamer:
         return True
 
     def start_update(self):
-        update()
         self.running = False
-        self.cleanup()
-        raise ExitThreadException()
+        self.should_update = True
+        self.log("Setting running to false to update")
 
     def receive_messages(self):
         while self.running and not self.receive_stopped:
@@ -107,6 +107,9 @@ class VideoStreamer:
                 self.receive_stopped = True
                 self.running = False
 
+        if (not self.running):
+            self.log("Exiting receive thread because running is false")
+
     def cleanup(self):
         # release the resources
         if (self.video_capture is not None):
@@ -115,6 +118,9 @@ class VideoStreamer:
         # close the WebSocket connection
         if (self.websocket is not None):
             self.websocket.close()
+
+        if (self.config.has_motor):
+            self.servo_controller.stop()
 
     def start_servos(self):
         if (not self.config.has_motor):
@@ -204,6 +210,14 @@ class VideoStreamer:
                 time.sleep(5)
 
         self.cleanup()
+
+        if (not self.running):
+            print("Exiting main thread because running is false")
+
+        if (self.should_update):
+            return 2
+        else:
+            return 0
 
     def log(self, message):
         if (self.config == None or self.config.should_log):
