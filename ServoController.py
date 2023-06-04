@@ -71,6 +71,8 @@ class ServoController:
                     self.x_servo.value = new_x
                     self.current_x = new_x
                     print("Setting new x position: ", new_x)
+                else:
+                    print("Not setting new x position: ", abs(self.current_x - new_x))
             else:
                 self.x_servo.detach()
 
