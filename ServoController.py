@@ -39,7 +39,6 @@ class ServoController:
         self.setup()
 
     def start(self):
-        print("Starting servos: ", self.min_x, self.max_x, self.min_y, self.max_y, self.max_speed, self.update_interval)
         self.running = True
         self.update_thread = threading.Thread(target=self.update_servo_positions)
         self.update_thread.start()
@@ -57,32 +56,24 @@ class ServoController:
                              max_pulse_width=2.5/1000, pin_factory=self.factory)
 
     def set_position(self, new_x, new_y):
-        print("Setting new position: ", new_x, new_y)
         self.target_x = self.limit_x(new_x)
         self.target_y = self.limit_y(new_y)
-        print("New target position: ", self.target_x, self.target_y)
 
     def update_servo_positions(self):
         while self.running:
             if not self.is_within_range(self.current_x, self.target_x, 0.001):
                 new_x = self.move_value_towards(self.current_x, self.target_x, self.max_speed)
 
-                if (not abs(self.current_x - new_x) > self.max_speed * 1.5):
-                    self.x_servo.value = new_x
-                    self.current_x = new_x
-                    print("Setting new x position: ", new_x)
-                else:
-                    print("Not setting new x position: ", abs(self.current_x - new_x))
+                self.x_servo.value = new_x
+                self.current_x = new_x
             else:
                 self.x_servo.detach()
 
             if not self.is_within_range(self.current_y, self.target_y, 0.001):
                 new_y = self.move_value_towards(self.current_y, self.target_y, self.max_speed)
 
-                if (not abs(self.current_y - new_y) > self.max_speed * 1.5):
-                    self.y_servo.value = new_y
-                    self.current_y = new_y
-                    print("Setting new y position: ", new_y)
+                self.y_servo.value = new_y
+                self.current_y = new_y
             else:
                 self.y_servo.detach()
 
